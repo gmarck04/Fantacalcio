@@ -1,0 +1,14 @@
+G:\Il mio Drive\Portatile\Github\Fantacalcio\Fantacalcio\Fantacalcio\Fantacalcio\bin\Debug\netcoreapp3.1\Fantacalcio.exe
+G:\Il mio Drive\Portatile\Github\Fantacalcio\Fantacalcio\Fantacalcio\Fantacalcio\bin\Debug\netcoreapp3.1\Fantacalcio.deps.json
+G:\Il mio Drive\Portatile\Github\Fantacalcio\Fantacalcio\Fantacalcio\Fantacalcio\bin\Debug\netcoreapp3.1\Fantacalcio.runtimeconfig.json
+G:\Il mio Drive\Portatile\Github\Fantacalcio\Fantacalcio\Fantacalcio\Fantacalcio\bin\Debug\netcoreapp3.1\Fantacalcio.runtimeconfig.dev.json
+G:\Il mio Drive\Portatile\Github\Fantacalcio\Fantacalcio\Fantacalcio\Fantacalcio\bin\Debug\netcoreapp3.1\Fantacalcio.dll
+G:\Il mio Drive\Portatile\Github\Fantacalcio\Fantacalcio\Fantacalcio\Fantacalcio\bin\Debug\netcoreapp3.1\Fantacalcio.pdb
+G:\Il mio Drive\Portatile\Github\Fantacalcio\Fantacalcio\Fantacalcio\Fantacalcio\obj\Debug\netcoreapp3.1\Fantacalcio.csproj.AssemblyReference.cache
+G:\Il mio Drive\Portatile\Github\Fantacalcio\Fantacalcio\Fantacalcio\Fantacalcio\obj\Debug\netcoreapp3.1\Fantacalcio.GeneratedMSBuildEditorConfig.editorconfig
+G:\Il mio Drive\Portatile\Github\Fantacalcio\Fantacalcio\Fantacalcio\Fantacalcio\obj\Debug\netcoreapp3.1\Fantacalcio.AssemblyInfoInputs.cache
+G:\Il mio Drive\Portatile\Github\Fantacalcio\Fantacalcio\Fantacalcio\Fantacalcio\obj\Debug\netcoreapp3.1\Fantacalcio.AssemblyInfo.cs
+G:\Il mio Drive\Portatile\Github\Fantacalcio\Fantacalcio\Fantacalcio\Fantacalcio\obj\Debug\netcoreapp3.1\Fantacalcio.csproj.CoreCompileInputs.cache
+G:\Il mio Drive\Portatile\Github\Fantacalcio\Fantacalcio\Fantacalcio\Fantacalcio\obj\Debug\netcoreapp3.1\Fantacalcio.dll
+G:\Il mio Drive\Portatile\Github\Fantacalcio\Fantacalcio\Fantacalcio\Fantacalcio\obj\Debug\netcoreapp3.1\Fantacalcio.pdb
+G:\Il mio Drive\Portatile\Github\Fantacalcio\Fantacalcio\Fantacalcio\Fantacalcio\obj\Debug\netcoreapp3.1\Fantacalcio.genruntimeconfig.cache
