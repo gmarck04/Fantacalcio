@@ -386,5 +386,27 @@ namespace Fantacalcio
             DateTime thisDay = DateTime.Today;
             Console.WriteLine(thisDay.ToString("D"));
         }
+
+        public static void Menù_aggiungi_punti()
+        {
+            int scelta;
+            Console.WriteLine("+3 punti per ogni gol segnato,\n + 3 punti per ogni rigore parato(portiere),\n +2 punti per ogni rigore segnato,\n +1 punto per ogni assist effettuato,\n -0,5 punti per ogni ammonizione,\n +1 portiere non ha preso gol in porta,\n -1 punto per ogni gol subito dal portiere,\n -1 punto per ogni espulsione,\n -2 punti per ogni autorete,\n -3 punti per un rigore sbagliato,\n +5 punti per bonus titolare,\n -2 punti per un’ammonizione,\n -5 punti per un’espulsione,\n +3 punti per un rigore guadagnato,\n -3 punti per un rigore causato,\n +6 punti per una rete inviolata(almeno 60' giocati),\n + 3 punti per una vittoria squadra appartenenza,\n +1 punti per un pareggio squadra appartenenza,\n +1 punti per un tiro fuori porta,\n +3 punti per un tiro in porta(pali e traverse).");
+            bool controllo = int.TryParse(Console.ReadLine(), out scelta);
+            while (!controllo || (scelta < 0 || scelta > 5)) //modifica
+            {
+                Console.WriteLine("Errato. Inserisci i fantamilioni per ogni fantaallentore");
+                controllo = int.TryParse(Console.ReadLine(), out scelta);
+            }
+
+            switch (scelta)
+            {
+                case 1:
+                    Lista_di_fantaallenatori[Id_Fantaallenatori(Squadra())].Inserisci_punti(3);
+                    break;
+                case 2:
+                    Lista_di_fantaallenatori[Id_Fantaallenatori(Squadra())].Inserisci_punti(3);
+                    break;
+            }
+        }
     }
 }
