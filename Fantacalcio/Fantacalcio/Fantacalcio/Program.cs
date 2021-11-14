@@ -160,16 +160,29 @@ namespace Fantacalcio
             Inserisci_fantaallenatore();
         }
         
-        public static void Inserisci_fantaallenatore()
+        public static void Inserisci_fantaallenatore() //Fai scegliere all'inizio il numero di fantaallenatori.... se no esplodi.
         {
-            string Scelta;
+            string Scelta = "";
             int squadre = 0;
             do
             {
                 Console.WriteLine("Inserisci il nome del fantaallenatore");
-                string nome = Console.ReadLine();
+                string nome = Console.ReadLine().ToUpper();
                 Console.WriteLine("Se non vuoi più inserire fantaallenatori scrivi FERMA, se vuoi ancora inserirne premi invio.");
                 Scelta = Console.ReadLine().ToUpper();
+                if (squadre < 2 || Scelta == "FERMA") //sistema
+                {
+                    Console.WriteLine("Il numero di fantaallenatori DEVE essere maggiore o uguale a 2");
+                }
+                for(int i = 0; i < Lista_di_fantaallenatori.Count; i++)
+                {
+                    if (Lista_di_fantaallenatori[i].Fantaallenatore_nome == nome)
+                    {
+                        Console.WriteLine("Il nome del fanta allenatore e' già stato inserito.");
+                        Console.WriteLine("Inserisci il nome del fantaallenatore");
+                        nome = Console.ReadLine().ToUpper();
+                    }
+                }                
                 Lista_di_fantaallenatori.Add(new fantaallenatore(nome, fantamilioni_iniziali));
                 squadre++;
                 if(squadre == 10)
@@ -177,8 +190,8 @@ namespace Fantacalcio
                     Console.WriteLine("Hai raggiunto il massimo numero di fantaallenatori");
                     Scelta = "FERMA";
                 }
-            } while (Scelta == "FERMA" || squadre <= 2);
-            Mostra_fantaallenatori();
+            } while (Scelta == "FERMA" && squadre <= 2);
+            Inserisci_fantacalciatore();
         }
 
         public static void Inserisci_fantacalciatore()
@@ -254,14 +267,14 @@ namespace Fantacalcio
                     {
                         case 1:
                             {
-                                int sottrazione = (Lista_di_fantaallenatori[numero].Mostra_Calciatori()[0].prezzo * 20) / 100;
                                 bool controllo = false;
                                 string nome_fantacalciatore = "";
 
                                 do //Ciclo do while, che continua se la variabile di tipo bool è false.
                                 {
                                     Console.WriteLine("Scrivi il nome del calciatore da vendere:"); //Scrive su console la stringa.
-                                    string nome = Console.ReadLine(); //Inizializzo la variabile di tipo string nome e le assegno il valore restituito dalla funzione Console.ReadLine.
+                                    string nome = Console.ReadLine(); //Inizializzo la variabile di tipo string nome e le assegno il valore restituito dalla funzione Console.ReadLine. 
+
                                     for (int i = 0; i < Lista_di_fantaallenatori[numero].Mostra_Calciatori().Count; i++) //Ciclo for che inizializza la variabile di tipo int a cui assegnio il nome i e la pongo pari a 0, che continua fino a quando il valore della i è minore della lunghezza della lista Lista_di_squadre, la i ad ogni ciclo viene incrementata di 1.
                                     {
                                         if (Lista_di_fantaallenatori[i].Fantaallenatore_nome == nome) //Se la stringa contenuta Lista_di_squadre[i].Nome_squadra è uguale alla stringa nome.
@@ -282,7 +295,7 @@ namespace Fantacalcio
                                         controllo = false; //Pongo controllo uguale a false.
                                     }
                                 } while (controllo == false);
-
+                                int sottrazione = (Lista_di_fantaallenatori[numero].Mostra_Calciatori()[Id_Fantacalciatori(nome_fantacalciatore, numero)].prezzo * 20) / 100;
                                 Lista_di_fantaallenatori[numero].Aumenenta_credito((Lista_di_fantaallenatori[numero].Mostra_Calciatori()[Id_Fantacalciatori(nome_fantacalciatore, numero)].prezzo - sottrazione));
                             }
                             break;
