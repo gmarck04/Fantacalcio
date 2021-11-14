@@ -164,16 +164,13 @@ namespace Fantacalcio
         {
             string Scelta = "";
             int squadre = 0;
-            do
+            while (Scelta != "FERMA" || squadre < 2)
             {
                 Console.WriteLine("Inserisci il nome del fantaallenatore");
                 string nome = Console.ReadLine().ToUpper();
                 Console.WriteLine("Se non vuoi più inserire fantaallenatori scrivi FERMA, se vuoi ancora inserirne premi invio.");
                 Scelta = Console.ReadLine().ToUpper();
-                if (squadre < 2 || Scelta == "FERMA") //sistema
-                {
-                    Console.WriteLine("Il numero di fantaallenatori DEVE essere maggiore o uguale a 2");
-                }
+                
                 for(int i = 0; i < Lista_di_fantaallenatori.Count; i++)
                 {
                     if (Lista_di_fantaallenatori[i].Fantaallenatore_nome == nome)
@@ -182,15 +179,21 @@ namespace Fantacalcio
                         Console.WriteLine("Inserisci il nome del fantaallenatore");
                         nome = Console.ReadLine().ToUpper();
                     }
-                }                
-                Lista_di_fantaallenatori.Add(new fantaallenatore(nome, fantamilioni_iniziali));
+                }
                 squadre++;
-                if(squadre == 10)
+                Lista_di_fantaallenatori.Add(new fantaallenatore(nome, fantamilioni_iniziali));
+
+                if (Scelta == "FERMA" && squadre < 2) //sistema
+                {
+                    Console.WriteLine("Il numero di fantaallenatori DEVE essere maggiore o uguale a 2");
+                    Scelta = "";
+                }
+                if (squadre == 10)
                 {
                     Console.WriteLine("Hai raggiunto il massimo numero di fantaallenatori");
                     Scelta = "FERMA";
                 }
-            } while (Scelta == "FERMA" && squadre <= 2);
+            } 
             Inserisci_fantacalciatore();
         }
 

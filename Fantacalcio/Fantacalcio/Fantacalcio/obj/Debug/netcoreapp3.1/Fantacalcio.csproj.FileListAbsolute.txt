@@ -12,3 +12,17 @@ G:\Il mio Drive\Portatile\Github\Fantacalcio\Fantacalcio\Fantacalcio\Fantacalcio
 G:\Il mio Drive\Portatile\Github\Fantacalcio\Fantacalcio\Fantacalcio\Fantacalcio\obj\Debug\netcoreapp3.1\Fantacalcio.dll
 G:\Il mio Drive\Portatile\Github\Fantacalcio\Fantacalcio\Fantacalcio\Fantacalcio\obj\Debug\netcoreapp3.1\Fantacalcio.pdb
 G:\Il mio Drive\Portatile\Github\Fantacalcio\Fantacalcio\Fantacalcio\Fantacalcio\obj\Debug\netcoreapp3.1\Fantacalcio.genruntimeconfig.cache
+C:\Users\Admin\Documents\GitHub\Fantacalcio\Fantacalcio\Fantacalcio\Fantacalcio\bin\Debug\netcoreapp3.1\Fantacalcio.exe
+C:\Users\Admin\Documents\GitHub\Fantacalcio\Fantacalcio\Fantacalcio\Fantacalcio\bin\Debug\netcoreapp3.1\Fantacalcio.deps.json
+C:\Users\Admin\Documents\GitHub\Fantacalcio\Fantacalcio\Fantacalcio\Fantacalcio\bin\Debug\netcoreapp3.1\Fantacalcio.runtimeconfig.json
+C:\Users\Admin\Documents\GitHub\Fantacalcio\Fantacalcio\Fantacalcio\Fantacalcio\bin\Debug\netcoreapp3.1\Fantacalcio.runtimeconfig.dev.json
+C:\Users\Admin\Documents\GitHub\Fantacalcio\Fantacalcio\Fantacalcio\Fantacalcio\bin\Debug\netcoreapp3.1\Fantacalcio.dll
+C:\Users\Admin\Documents\GitHub\Fantacalcio\Fantacalcio\Fantacalcio\Fantacalcio\bin\Debug\netcoreapp3.1\Fantacalcio.pdb
+C:\Users\Admin\Documents\GitHub\Fantacalcio\Fantacalcio\Fantacalcio\Fantacalcio\obj\Debug\netcoreapp3.1\Fantacalcio.csproj.AssemblyReference.cache
+C:\Users\Admin\Documents\GitHub\Fantacalcio\Fantacalcio\Fantacalcio\Fantacalcio\obj\Debug\netcoreapp3.1\Fantacalcio.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Admin\Documents\GitHub\Fantacalcio\Fantacalcio\Fantacalcio\Fantacalcio\obj\Debug\netcoreapp3.1\Fantacalcio.AssemblyInfoInputs.cache
+C:\Users\Admin\Documents\GitHub\Fantacalcio\Fantacalcio\Fantacalcio\Fantacalcio\obj\Debug\netcoreapp3.1\Fantacalcio.AssemblyInfo.cs
+C:\Users\Admin\Documents\GitHub\Fantacalcio\Fantacalcio\Fantacalcio\Fantacalcio\obj\Debug\netcoreapp3.1\Fantacalcio.csproj.CoreCompileInputs.cache
+C:\Users\Admin\Documents\GitHub\Fantacalcio\Fantacalcio\Fantacalcio\Fantacalcio\obj\Debug\netcoreapp3.1\Fantacalcio.dll
+C:\Users\Admin\Documents\GitHub\Fantacalcio\Fantacalcio\Fantacalcio\Fantacalcio\obj\Debug\netcoreapp3.1\Fantacalcio.pdb
+C:\Users\Admin\Documents\GitHub\Fantacalcio\Fantacalcio\Fantacalcio\Fantacalcio\obj\Debug\netcoreapp3.1\Fantacalcio.genruntimeconfig.cache
