@@ -33,7 +33,9 @@ namespace Fantacalcio
     class Program
     {
         public static string file_fantaallenatore = AppDomain.CurrentDomain.BaseDirectory + "/Fantaallenatore.JSON";
+        public static string file_fantacalciatore = AppDomain.CurrentDomain.BaseDirectory + "/Fantacalciatore.JSON";
         public static List<fantaallenatore> Lista_di_fantaallenatori = new List<fantaallenatore>();
+        public static List<fantacalciatore> Lista_di_tutti_i_fantacalciatori = new List<fantacalciatore>();
         public static int fantamilioni_iniziali = 0;
         static void Main(string[] args)
         {
@@ -73,28 +75,30 @@ namespace Fantacalcio
             serializza_JSON();
         }
         
-        public static void Inserisci_fantaallenatore() //Fai scegliere all'inizio il numero di fantaallenatori.... se no esplodi.
+        public static void Inserisci_fantaallenatore()
         {
             string Scelta = "";
             int squadre = 0;
             while (Scelta != "FERMA" || squadre < 2)
             {
-                Console.WriteLine("Inserisci il nome del fantaallenatore");
-                string nome = Console.ReadLine().ToUpper();
-                Console.WriteLine("Se non vuoi più inserire fantaallenatori scrivi FERMA, se vuoi ancora inserirne premi invio.");
-                Scelta = Console.ReadLine().ToUpper();
+                Console.WriteLine("Inserisci il nome del fantaallenatore da aggiungere");
+                string nome = Console.ReadLine().ToUpper();               
                 
                 for(int i = 0; i < Lista_di_fantaallenatori.Count; i++)
                 {
-                    if (Lista_di_fantaallenatori[i].Get_nome() == nome)
+                    while (Lista_di_fantaallenatori[i].Get_nome() == nome)
                     {
-                        Console.WriteLine("Il nome del fanta allenatore e' già stato inserito.");
-                        Console.WriteLine("Inserisci il nome del fantaallenatore");
+                        Console.WriteLine("Il nome del fantaallenatore e' già stato inserito. \n");
+                        Mostra_fantaallenatori();
+                        Console.WriteLine("Inserisci il nome del fantaallenatore da aggiungere");
                         nome = Console.ReadLine().ToUpper();
                     }
                 }
                 squadre++;
                 Lista_di_fantaallenatori.Add(new fantaallenatore(nome, fantamilioni_iniziali));
+
+                Console.WriteLine("Se non vuoi più inserire fantaallenatori scrivi FERMA, se vuoi ancora inserirne premi invio.");
+                Scelta = Console.ReadLine().ToUpper();
 
                 if (Scelta == "FERMA" && squadre < 2) //sistema
                 {
@@ -109,8 +113,49 @@ namespace Fantacalcio
             }        
         }
 
+        public static void menù() //Funzione menù, che va a indirizzare la scelta fatta con la funzione menu_scelta.
+        {
+            int scelta = -1; //Inizzializzo la avriabile di tipo int scelta e la pongo uguale a -1.
+            Console.Clear(); //Funzione, che pulisce la console.
+
+            do //Ciclo do while, che continua se la variabile di tipo int è diversa da 0.
+            {
+                scelta = menu_scelta(); //Assegno il valore restituito dalla funzione menu_scelta alla variabile scelta.
+
+                switch (scelta) //Switch con la variabile scelta.
+                {
+                    case 1: //Se la variabile scelta è uguale a 1.
+                        {
+                            
+                        }
+                        break; //Chiudo.                
+                }
+            } while (scelta != 13); //era uguale a 12 (+1).
+        }
+
+        public static int menu_scelta() //Funzione che visualizza il menu.
+        {
+            int scelta; //Inizzializzo la avriabile di tipo int numero_squadre.
+            Console.WriteLine("Menù:\n -1"); //Scrive su console la stringa.
+            bool controllo = int.TryParse(Console.ReadLine(), out scelta); //Inizializzo la variabile di tipo bool controllo e le do valore pari al valore ritornato dalla funzione TryParse, che prende in entrata il valore preso dalla funzione Console.ReadLine, restituisce il valore convertito in int e lo inserisce in scelta.
+            
+            
+            
+            while (!controllo || (scelta < 0 || scelta > 14)) //Ciclo while, che si avvia se controllo è falso o se la variabile numero_squadre è minore di 0 o maggiore di 14.
+
+
+
+            {
+                Console.WriteLine("Errato. Menù:\n -1 "); //Scrive su console la stringa.
+                controllo = int.TryParse(Console.ReadLine(), out scelta); //Do alla variabile di tipo bool controllo e le do valore pari al valore ritornato dalla funzione TryParse, che prende in entrata il valore preso dalla funzione Console.ReadLine, restituisce il valore convertito in int e lo inserisce in scelta.
+            }
+            return scelta; //Ritorna la variabile scelta.
+        }
+
         public static void Inserisci_fantacalciatore()
         {
+            Console.Clear();
+            Mostra_fantaallenatori();
             int numero = Id_Fantaallenatori(Squadra());
             bool continuo_ciclo = true;
             //continuo_ciclo == true
@@ -118,8 +163,23 @@ namespace Fantacalcio
             {
                 int credito, scelta_per_ruolo;
                 string ruolo = "";
-                Console.WriteLine("Inserisci nome del giocatore da aggiungere");
-                string nome_calciatore = Console.ReadLine();
+                Console.WriteLine("Inserisci il nome del giocatore da aggiungere");
+                string nome_calciatore = Console.ReadLine().ToUpper();
+                Console.WriteLine("Inserisci il cognome del giocatore da aggiungere");
+                string cognome_calciatore = Console.ReadLine().ToUpper();
+
+                for (int i = 0; i < Lista_di_tutti_i_fantacalciatori.Count; i++)
+                {
+                    while (Lista_di_tutti_i_fantacalciatori[i].Get_nome() == nome_calciatore && Lista_di_tutti_i_fantacalciatori[i].Get_cognome() == cognome_calciatore)
+                    {
+                        Console.WriteLine("Il calciatore e' già stato preso.");
+                        Console.WriteLine("Inserisci il nome del giocatore da aggiungere");
+                        nome_calciatore = Console.ReadLine().ToUpper();
+                        Console.WriteLine("Inserisci il cognome del giocatore da aggiungere");
+                        cognome_calciatore = Console.ReadLine().ToUpper();
+                    }
+                }
+
                 Console.WriteLine("Ruoli:\n -1 portiere,\n -2 difensore,\n -3 centrocampista,\n -4 Attacante.");
                 bool controllo_1 = int.TryParse(Console.ReadLine(), out scelta_per_ruolo); //Inizializzo la variabile di tipo bool controllo e le do valore pari al valore ritornato dalla funzione TryParse, che prende in entrata il valore preso dalla funzione Console.ReadLine, restituisce il valore convertito in int e lo inserisce in gol.
                 while (!controllo_1 || (scelta_per_ruolo < 0 || scelta_per_ruolo > 5))
@@ -162,11 +222,11 @@ namespace Fantacalcio
                 {
                     Console.WriteLine("Errato. Inserisci il numero di fantamilioni da usare"); //Scrive su console la stringa.
                     controllo_2 = int.TryParse(Console.ReadLine(), out credito); //Do alla variabile di tipo bool controllo e le do valore pari al valore ritornato dalla funzione TryParse, che prende in entrata il valore preso dalla funzione Console.ReadLine, restituisce il valore convertito in int e lo inserisce in gol.
-                }
-
+                }                
                 if (credito <= Lista_di_fantaallenatori[numero].Visualizza_credito())
                 {
-                    Lista_di_fantaallenatori[numero].Aggiungi_Calciatore(new fantacalciatore(nome_calciatore, ruolo, credito));
+                    Lista_di_fantaallenatori[numero].Aggiungi_Calciatore(new fantacalciatore(nome_calciatore, cognome_calciatore, ruolo, credito));
+                    Lista_di_tutti_i_fantacalciatori.Add(new fantacalciatore(nome_calciatore, cognome_calciatore, ruolo, credito));
                 }
                 else if (credito > Lista_di_fantaallenatori[numero].Visualizza_credito())
                 {
@@ -296,12 +356,8 @@ namespace Fantacalcio
                 if (controllo == false) //Se controllo è uguale a false allora...
                 {
                     Console.Clear(); //Pulisci la console.
-                    Console.WriteLine("La sqaudra inserita non esiste"); //Scrive su console la stringa.
-                    Console.WriteLine("Le squadre disponibili sono:"); //Scrive su console la stringa.
-                    for (int i = 0; i < Lista_di_fantaallenatori.Count; i++) //Ciclo for che inizializza la variabile di tipo int a cui assegnio il nome i e la pongo pari a 0, che continua fino a quando il valore della i è minore della lunghezza della lista Lista_di_squadre, la i ad ogni ciclo viene incrementata di 1.
-                    {
-                        Console.WriteLine(Lista_di_fantaallenatori[i].ToString()); //Scrive su console il valore ritornato da Lista_di_squadre[i].ToString().
-                    }
+                    Console.WriteLine("La sqaudra inserita non esiste"); //Scrive su console la stringa.                    
+                    Mostra_fantaallenatori();
                     controllo = false; //Pongo controllo uguale a false.
                 }
             } while (controllo == false);
@@ -311,6 +367,7 @@ namespace Fantacalcio
 
         public static void Mostra_fantaallenatori()
         {
+            Console.WriteLine("Le squadre inserite sono:"); //Scrive su console la stringa.
             for (int i = 0; i < Lista_di_fantaallenatori.Count; i++)  //Ciclo for che inizializza la variabile di tipo int a cui assegnio il nome i e la pongo pari a 0, che continua fino a quando il valore della i è minore della lunghezza della lista Lista_di_squadre, la i ad ogni ciclo viene incrementata di 1.
             {
                 Console.WriteLine(Lista_di_fantaallenatori[i].ToString());
@@ -382,15 +439,19 @@ namespace Fantacalcio
         public static void serializza_JSON()
         {
             string output = JsonConvert.SerializeObject(Lista_di_fantaallenatori, Formatting.Indented);
-
             File.WriteAllText(file_fantaallenatore, output);
+
+            string output_fantacalciatore = JsonConvert.SerializeObject(Lista_di_tutti_i_fantacalciatori, Formatting.Indented);
+            File.WriteAllText(file_fantacalciatore, output_fantacalciatore);
         }
 
         public static void deserializza_JSON()
         {
             string input = File.ReadAllText(file_fantaallenatore);
-
             Lista_di_fantaallenatori = JsonConvert.DeserializeObject<List<fantaallenatore>>(input);
+
+            string input_fantacalciatore = File.ReadAllText(file_fantaallenatore);
+            Lista_di_tutti_i_fantacalciatori = JsonConvert.DeserializeObject<List<fantacalciatore>>(input_fantacalciatore);
         }
     }
 }

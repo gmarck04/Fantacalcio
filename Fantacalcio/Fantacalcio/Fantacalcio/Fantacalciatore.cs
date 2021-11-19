@@ -14,13 +14,16 @@ namespace Fantacalcio
         [JsonProperty]
         protected string nome;
         [JsonProperty]
+        protected string cognome;
+        [JsonProperty]
         protected string ruolo;
         [JsonProperty]
         protected int prezzo;
         //Costruttore.
-        public fantacalciatore(string nome, string ruolo, int prezzo)
+        public fantacalciatore(string nome, string cognome, string ruolo, int prezzo)
         {
             this.nome = nome;
+            this.cognome = cognome;
             this.ruolo = ruolo;
             this.prezzo = prezzo;
         }
@@ -28,6 +31,11 @@ namespace Fantacalcio
         public string Get_nome()
         {
             return nome;
+        }
+
+        public string Get_cognome()
+        {
+            return cognome;
         }
 
         public string Get_ruolo()
