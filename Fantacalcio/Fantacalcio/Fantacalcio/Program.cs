@@ -26,111 +26,13 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using Newtonsoft.Json;
 
 namespace Fantacalcio
 {
-    /**
-     * \brief La classe fantacalciatore chiede in entrata un nome, un ruolo e un prezzo per il calciatore.
-     * \param string nome: nome del calciatore
-     * \param string ruolo: ruolo del calciatore
-     * \param int prezzo: prezzo del calciatore
-     */
-    class fantacalciatore
-    {
-        //Attributi
-        public string nome, ruolo;
-        public int prezzo;
-        //Costruttore.
-        public fantacalciatore(string nome, string ruolo, int prezzo) 
-        {
-            this.nome = nome;
-            this.ruolo = ruolo;
-            this.prezzo = prezzo;
-        }
-        public override string ToString() //Metodo ToString, che ritorna la stringa nome.
-        {
-            return $"nome: {nome}, ruolo: {ruolo}, prezzo: {prezzo}";
-        }
-    }
-
-    /**
-     * \brief La classe fantaallenatore chiede in entrata un nome del fantaallenatore, i crediti del fantaallenatore.
-     * \param string nome: nome del calciatore
-     * \param string ruolo: ruolo del calciatore
-     * \param int prezzo: prezzo del calciatore
-     */
-    class fantaallenatore
-    {
-        //Attributi
-        public string Fantaallenatore_nome;
-        protected int Fantaallenatore_crediti, Fantaallenatore_punti;
-        public int N_portieri, N_difensori, N_centrocampisti, N_attacanti;
-        List<fantacalciatore> Lista_Calciatori = new List<fantacalciatore>();
-
-        //Costruttore
-        public fantaallenatore(string Fantaallenatore_nome, int Fantaallenatore_crediti)
-        {
-            this.Fantaallenatore_nome = Fantaallenatore_nome;
-            this.Fantaallenatore_crediti = Fantaallenatore_crediti;
-            this.Fantaallenatore_punti = 0;
-        }
-
-        //Metodi
-        public void Diminuisci_credito(int credito)
-        {
-            Fantaallenatore_crediti -= credito;
-        }
-
-        public void Aumenenta_credito(int credito)
-        {
-            Fantaallenatore_crediti += credito;
-        }
-
-        public int Visualizza_credito()
-        {
-            return Fantaallenatore_crediti;
-        }
-
-        public void Inserisci_punti(int punti)
-        {
-            Fantaallenatore_punti += punti;
-        }
-
-        public int Mostra_punti()
-        {
-            return Fantaallenatore_punti;
-        }
-
-        public List<fantacalciatore> Mostra_Calciatori() //Metodo che ritorna la Lista_calciatori.
-        {
-            return Lista_Calciatori;
-        }
-
-        public void Aggiungi_Calciatore(fantacalciatore calciatori) //Metodo che aggiunge i calciatori alla lista Lista_calciatori.
-        {
-            Lista_Calciatori.Add(calciatori);
-        }
-
-        public void Rimuovi_Calciatore(string nome) //Metodo che rimuove i calciatori dalla Lista_calciatori.
-        {
-            for (int i = 0; i < Lista_Calciatori.Count; i++)
-            { 
-                if (Lista_Calciatori[i].nome == nome) 
-                {
-                    Lista_Calciatori.Remove(Lista_Calciatori[i]); 
-                }
-            }
-        }
-
-        public override string ToString() //Metodo ToString, che ritorna la stringa nome.
-        {
-            return $"nome: {Fantaallenatore_nome}";
-        }
-    }
-
     class Program
     {
-        public static string file = AppDomain.CurrentDomain.BaseDirectory + "/Fantaallenatore.JSON";
+        public static string file_fantaallenatore = AppDomain.CurrentDomain.BaseDirectory + "/Fantaallenatore.JSON";
         public static List<fantaallenatore> Lista_di_fantaallenatori = new List<fantaallenatore>();
         public static int fantamilioni_iniziali = 0;
         static void Main(string[] args)
@@ -151,6 +53,9 @@ namespace Fantacalcio
         public static void File_trovato() //Funzione File_trovato (da fare...)
         {
             Console.WriteLine("Benvenuto, vuoi caricare i file di salvataggio o creare una nuovo campionato?\n (se selezioni si allora perderai tutti i file)"); //Scrive su console la stringa.
+            deserializza_JSON();
+            Menù_aggiungi_punti();
+            serializza_JSON();
         }
 
         public static void File_non_trovato()
@@ -158,6 +63,14 @@ namespace Fantacalcio
             Console.WriteLine("Benvenuto nel Fantacalcio");
             Richiesta_credito();
             Inserisci_fantaallenatore();
+
+            for (int i = 0; i < Lista_di_fantaallenatori.Count; i++)
+            {
+                Inserisci_fantacalciatore();
+            }
+
+            Menù_aggiungi_punti();
+            serializza_JSON();
         }
         
         public static void Inserisci_fantaallenatore() //Fai scegliere all'inizio il numero di fantaallenatori.... se no esplodi.
@@ -173,7 +86,7 @@ namespace Fantacalcio
                 
                 for(int i = 0; i < Lista_di_fantaallenatori.Count; i++)
                 {
-                    if (Lista_di_fantaallenatori[i].Fantaallenatore_nome == nome)
+                    if (Lista_di_fantaallenatori[i].Get_nome() == nome)
                     {
                         Console.WriteLine("Il nome del fanta allenatore e' già stato inserito.");
                         Console.WriteLine("Inserisci il nome del fantaallenatore");
@@ -193,15 +106,15 @@ namespace Fantacalcio
                     Console.WriteLine("Hai raggiunto il massimo numero di fantaallenatori");
                     Scelta = "FERMA";
                 }
-            } 
-            Inserisci_fantacalciatore();
+            }        
         }
 
         public static void Inserisci_fantacalciatore()
         {
             int numero = Id_Fantaallenatori(Squadra());
-
-            while(Lista_di_fantaallenatori[numero].N_portieri <= 3 && Lista_di_fantaallenatori[numero].N_difensori <= 8 && Lista_di_fantaallenatori[numero].N_centrocampisti <= 8 && Lista_di_fantaallenatori[numero].N_attacanti <= 6)
+            bool continuo_ciclo = true;
+            //continuo_ciclo == true
+            while (Lista_di_fantaallenatori[numero].N_portieri <= 1)
             {
                 int credito, scelta_per_ruolo;
                 string ruolo = "";
@@ -251,11 +164,11 @@ namespace Fantacalcio
                     controllo_2 = int.TryParse(Console.ReadLine(), out credito); //Do alla variabile di tipo bool controllo e le do valore pari al valore ritornato dalla funzione TryParse, che prende in entrata il valore preso dalla funzione Console.ReadLine, restituisce il valore convertito in int e lo inserisce in gol.
                 }
 
-                if (credito >= Lista_di_fantaallenatori[numero].Visualizza_credito())
+                if (credito <= Lista_di_fantaallenatori[numero].Visualizza_credito())
                 {
                     Lista_di_fantaallenatori[numero].Aggiungi_Calciatore(new fantacalciatore(nome_calciatore, ruolo, credito));
                 }
-                else if (credito < Lista_di_fantaallenatori[numero].Visualizza_credito())
+                else if (credito > Lista_di_fantaallenatori[numero].Visualizza_credito())
                 {
                     int scelta_vendita;
                     Console.WriteLine("Il credito e' insufficiente");
@@ -270,36 +183,7 @@ namespace Fantacalcio
                     {
                         case 1:
                             {
-                                bool controllo = false;
-                                string nome_fantacalciatore = "";
-
-                                do //Ciclo do while, che continua se la variabile di tipo bool è false.
-                                {
-                                    Console.WriteLine("Scrivi il nome del calciatore da vendere:"); //Scrive su console la stringa.
-                                    string nome = Console.ReadLine(); //Inizializzo la variabile di tipo string nome e le assegno il valore restituito dalla funzione Console.ReadLine. 
-
-                                    for (int i = 0; i < Lista_di_fantaallenatori[numero].Mostra_Calciatori().Count; i++) //Ciclo for che inizializza la variabile di tipo int a cui assegnio il nome i e la pongo pari a 0, che continua fino a quando il valore della i è minore della lunghezza della lista Lista_di_squadre, la i ad ogni ciclo viene incrementata di 1.
-                                    {
-                                        if (Lista_di_fantaallenatori[i].Fantaallenatore_nome == nome) //Se la stringa contenuta Lista_di_squadre[i].Nome_squadra è uguale alla stringa nome.
-                                        {
-                                            nome_fantacalciatore = nome; //Pongo la stringa nome_squadra uguale al valore della stringa nome.
-                                            controllo = true; //Pongo controllo uguale a true.
-                                        }
-                                    }
-                                    if (controllo == false) //Se controllo è uguale a false allora...
-                                    {
-                                        Console.Clear(); //Pulisci la console.
-                                        Console.WriteLine("La sqaudra inserita non esiste"); //Scrive su console la stringa.
-                                        Console.WriteLine("Le squadre disponibili sono:"); //Scrive su console la stringa.
-                                        for (int i = 0; i < Lista_di_fantaallenatori[numero].Mostra_Calciatori().Count; i++) //Ciclo for che inizializza la variabile di tipo int a cui assegnio il nome i e la pongo pari a 0, che continua fino a quando il valore della i è minore della lunghezza della lista Lista_di_squadre, la i ad ogni ciclo viene incrementata di 1.
-                                        {
-                                            Console.WriteLine(Lista_di_fantaallenatori[numero].Mostra_Calciatori()[i].nome); //Scrive su console il valore ritornato da Lista_di_squadre[i].ToString().
-                                        }
-                                        controllo = false; //Pongo controllo uguale a false.
-                                    }
-                                } while (controllo == false);
-                                int sottrazione = (Lista_di_fantaallenatori[numero].Mostra_Calciatori()[Id_Fantacalciatori(nome_fantacalciatore, numero)].prezzo * 20) / 100;
-                                Lista_di_fantaallenatori[numero].Aumenenta_credito((Lista_di_fantaallenatori[numero].Mostra_Calciatori()[Id_Fantacalciatori(nome_fantacalciatore, numero)].prezzo - sottrazione));
+                                Banca_vendia(numero);
                             }
                             break;
                         case 2:
@@ -309,14 +193,71 @@ namespace Fantacalcio
                             break;
                     }
                 }
+
+                
+
+                if (Lista_di_fantaallenatori[numero].N_portieri <= 2 && Lista_di_fantaallenatori[numero].N_difensori <= 7 && Lista_di_fantaallenatori[numero].N_centrocampisti <= 7 && Lista_di_fantaallenatori[numero].N_attacanti <= 5)
+                {
+                    int scelta = 0;
+                    Console.WriteLine("Vuoi contiunuare ? \n premi 1 per il si, premi 2 per il no.");
+                    bool controllo_4 = int.TryParse(Console.ReadLine(), out scelta); //Inizializzo la variabile di tipo bool controllo e le do valore pari al valore ritornato dalla funzione TryParse, che prende in entrata il valore preso dalla funzione Console.ReadLine, restituisce il valore convertito in int e lo inserisce in gol.
+                    while (!controllo_4 || (scelta < 0 || scelta > 3))
+                    {
+                        Console.WriteLine("Errato. Vuoi contiunuare ? \n premi 1 per il si, premi 2 per il no."); //Scrive su console la stringa.
+                        controllo_4 = int.TryParse(Console.ReadLine(), out scelta); //Do alla variabile di tipo bool controllo e le do valore pari al valore ritornato dalla funzione TryParse, che prende in entrata il valore preso dalla funzione Console.ReadLine, restituisce il valore convertito in int e lo inserisce in gol.
+                    }
+                    if (scelta == 1)
+                    {
+                        continuo_ciclo = true;
+                    }   
+                    else if (scelta == 2)
+                    {
+                        continuo_ciclo = false;
+                    }   
+                    
+                }              
             }            
+        }
+
+        public static void Banca_vendia(int numero)
+        {
+            bool controllo = false;
+            string nome_fantacalciatore = "";
+
+            do //Ciclo do while, che continua se la variabile di tipo bool è false.
+            {
+                Console.WriteLine("Scrivi il nome del calciatore da vendere:"); //Scrive su console la stringa.
+                string nome = Console.ReadLine(); //Inizializzo la variabile di tipo string nome e le assegno il valore restituito dalla funzione Console.ReadLine. 
+
+                for (int i = 0; i < Lista_di_fantaallenatori[numero].Mostra_Calciatori().Count; i++) //Ciclo for che inizializza la variabile di tipo int a cui assegnio il nome i e la pongo pari a 0, che continua fino a quando il valore della i è minore della lunghezza della lista Lista_di_squadre, la i ad ogni ciclo viene incrementata di 1.
+                {
+                    if (Lista_di_fantaallenatori[i].Get_nome() == nome) //Se la stringa contenuta Lista_di_squadre[i].Nome_squadra è uguale alla stringa nome.
+                    {
+                        nome_fantacalciatore = nome; //Pongo la stringa nome_squadra uguale al valore della stringa nome.
+                        controllo = true; //Pongo controllo uguale a true.
+                    }
+                }
+                if (controllo == false) //Se controllo è uguale a false allora...
+                {
+                    Console.Clear(); //Pulisci la console.
+                    Console.WriteLine("La sqaudra inserita non esiste"); //Scrive su console la stringa.
+                    Console.WriteLine("Le squadre disponibili sono:"); //Scrive su console la stringa.
+                    for (int i = 0; i < Lista_di_fantaallenatori[numero].Mostra_Calciatori().Count; i++) //Ciclo for che inizializza la variabile di tipo int a cui assegnio il nome i e la pongo pari a 0, che continua fino a quando il valore della i è minore della lunghezza della lista Lista_di_squadre, la i ad ogni ciclo viene incrementata di 1.
+                    {
+                        Console.WriteLine(Lista_di_fantaallenatori[numero].Mostra_Calciatori()[i].Get_nome()); //Scrive su console il valore ritornato da Lista_di_squadre[i].ToString().
+                    }
+                    controllo = false; //Pongo controllo uguale a false.
+                }
+            } while (controllo == false);
+            int sottrazione = (Lista_di_fantaallenatori[numero].Mostra_Calciatori()[Id_Fantacalciatori(nome_fantacalciatore, numero)].Get_prezzo() * 20) / 100;
+            Lista_di_fantaallenatori[numero].Aumenenta_credito((Lista_di_fantaallenatori[numero].Mostra_Calciatori()[Id_Fantacalciatori(nome_fantacalciatore, numero)].Get_prezzo() - sottrazione));
         }
 
         public static int Id_Fantaallenatori(string nome) //Funzione Id_Squadre, che ritorna la lunghezza della lista Lista_di_squadre
         {
             for (int i = 0; i < Lista_di_fantaallenatori.Count; i++)  //Ciclo for che inizializza la variabile di tipo int a cui assegnio il nome i e la pongo pari a 0, che continua fino a quando il valore della i è minore della lunghezza della lista Lista_di_squadre, la i ad ogni ciclo viene incrementata di 1.
             {
-                if (Lista_di_fantaallenatori[i].Fantaallenatore_nome == nome) //Se la stringa contenuta Lista_di_squadre[i].Nome_squadra è uguale alla stringa nome.
+                if (Lista_di_fantaallenatori[i].Get_nome() == nome) //Se la stringa contenuta Lista_di_squadre[i].Nome_squadra è uguale alla stringa nome.
                 {
                     return i; //Ritorna il valore di i.
                 }
@@ -328,7 +269,7 @@ namespace Fantacalcio
         {
             for (int i = 0; i < Lista_di_fantaallenatori[numero].Mostra_Calciatori().Count; i++)  //Ciclo for che inizializza la variabile di tipo int a cui assegnio il nome i e la pongo pari a 0, che continua fino a quando il valore della i è minore della lunghezza della lista Lista_di_squadre, la i ad ogni ciclo viene incrementata di 1.
             {
-                if (Lista_di_fantaallenatori[numero].Mostra_Calciatori()[i].nome == nome) //Se la stringa contenuta Lista_di_squadre[i].Nome_squadra è uguale alla stringa nome.
+                if (Lista_di_fantaallenatori[numero].Mostra_Calciatori()[i].Get_nome() == nome) //Se la stringa contenuta Lista_di_squadre[i].Nome_squadra è uguale alla stringa nome.
                 {
                     return i; //Ritorna il valore di i.
                 }
@@ -343,10 +284,10 @@ namespace Fantacalcio
             do //Ciclo do while, che continua se la variabile di tipo bool è false.
             {
                 Console.WriteLine("Inserisci il nome del fantaallenatore"); //Scrive su console la stringa.
-                string nome = Console.ReadLine(); //Inizializzo la variabile di tipo string nome e le assegno il valore restituito dalla funzione Console.ReadLine.
+                string nome = Console.ReadLine().ToUpper(); //Inizializzo la variabile di tipo string nome e le assegno il valore restituito dalla funzione Console.ReadLine.
                 for (int i = 0; i < Lista_di_fantaallenatori.Count; i++) //Ciclo for che inizializza la variabile di tipo int a cui assegnio il nome i e la pongo pari a 0, che continua fino a quando il valore della i è minore della lunghezza della lista Lista_di_squadre, la i ad ogni ciclo viene incrementata di 1.
                 {
-                    if (Lista_di_fantaallenatori[i].Fantaallenatore_nome == nome) //Se la stringa contenuta Lista_di_squadre[i].Nome_squadra è uguale alla stringa nome.
+                    if (Lista_di_fantaallenatori[i].Get_nome() == nome) //Se la stringa contenuta Lista_di_squadre[i].Nome_squadra è uguale alla stringa nome.
                     {
                         nome_squadra = nome; //Pongo la stringa nome_squadra uguale al valore della stringa nome.
                         controllo = true; //Pongo controllo uguale a true.
@@ -389,7 +330,7 @@ namespace Fantacalcio
 
         public static int Controllo_salvataggio() //Funzione Controllo_salvataggio, che controlla che il file esista.
         {
-            if (!File.Exists(file)) //Se il file esiste allora...
+            if (!File.Exists(file_fantaallenatore)) //Se il file esiste allora...
             {
                 //Console.WriteLine("File di salvataggio non trovato"); //Scrive su console la stringa.
                 return -1; //Ritorna -1.
@@ -406,7 +347,11 @@ namespace Fantacalcio
         public static void Menù_aggiungi_punti()
         {
             int scelta;
-            Console.WriteLine("+3 punti per ogni gol segnato,\n + 3 punti per ogni rigore parato(portiere),\n +2 punti per ogni rigore segnato,\n +1 punto per ogni assist effettuato,\n -0,5 punti per ogni ammonizione,\n +1 portiere non ha preso gol in porta,\n -1 punto per ogni gol subito dal portiere,\n -1 punto per ogni espulsione,\n -2 punti per ogni autorete,\n -3 punti per un rigore sbagliato,\n +5 punti per bonus titolare,\n -2 punti per un’ammonizione,\n -5 punti per un’espulsione,\n +3 punti per un rigore guadagnato,\n -3 punti per un rigore causato,\n +6 punti per una rete inviolata(almeno 60' giocati),\n + 3 punti per una vittoria squadra appartenenza,\n +1 punti per un pareggio squadra appartenenza,\n +1 punti per un tiro fuori porta,\n +3 punti per un tiro in porta(pali e traverse).");
+            Console.WriteLine("Premi: \n-1 Per gol segnato,\n + 3 punti per ogni rigore parato(portiere),\n +2 punti per ogni rigore segnato,\n +1 punto per ogni assist effettuato,\n " +
+                "-0,5 punti per ogni ammonizione,\n +1 portiere non ha preso gol in porta,\n -1 punto per ogni gol subito dal portiere,\n -1 punto per ogni espulsione,\n -2 punti per ogni autorete,\n " +
+                "-3 punti per un rigore sbagliato,\n +5 punti per bonus titolare,\n -2 punti per un’ammonizione,\n -5 punti per un’espulsione,\n +3 punti per un rigore guadagnato,\n " +
+                "-3 punti per un rigore causato,\n +6 punti per una rete inviolata(almeno 60' giocati),\n + 3 punti per una vittoria squadra appartenenza,\n " +
+                "+1 punti per un pareggio squadra appartenenza,\n +1 punti per un tiro fuori porta,\n +3 punti per un tiro in porta(pali e traverse).");
             bool controllo = int.TryParse(Console.ReadLine(), out scelta);
             while (!controllo || (scelta < 0 || scelta > 5)) //modifica
             {
@@ -422,7 +367,30 @@ namespace Fantacalcio
                 case 2:
                     Lista_di_fantaallenatori[Id_Fantaallenatori(Squadra())].Inserisci_punti(3);
                     break;
+                case 3:
+                    Lista_di_fantaallenatori[Id_Fantaallenatori(Squadra())].Inserisci_punti(2);
+                    break;
+                case 4:
+                    Lista_di_fantaallenatori[Id_Fantaallenatori(Squadra())].Inserisci_punti(1);
+                    break;
+                case 5:
+                    Lista_di_fantaallenatori[Id_Fantaallenatori(Squadra())].Inserisci_punti(-0.5);
+                    break;
             }
+        }
+
+        public static void serializza_JSON()
+        {
+            string output = JsonConvert.SerializeObject(Lista_di_fantaallenatori, Formatting.Indented);
+
+            File.WriteAllText(file_fantaallenatore, output);
+        }
+
+        public static void deserializza_JSON()
+        {
+            string input = File.ReadAllText(file_fantaallenatore);
+
+            Lista_di_fantaallenatori = JsonConvert.DeserializeObject<List<fantaallenatore>>(input);
         }
     }
 }

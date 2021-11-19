@@ -26,3 +26,5 @@ C:\Users\Admin\Documents\GitHub\Fantacalcio\Fantacalcio\Fantacalcio\Fantacalcio\
 C:\Users\Admin\Documents\GitHub\Fantacalcio\Fantacalcio\Fantacalcio\Fantacalcio\obj\Debug\netcoreapp3.1\Fantacalcio.dll
 C:\Users\Admin\Documents\GitHub\Fantacalcio\Fantacalcio\Fantacalcio\Fantacalcio\obj\Debug\netcoreapp3.1\Fantacalcio.pdb
 C:\Users\Admin\Documents\GitHub\Fantacalcio\Fantacalcio\Fantacalcio\Fantacalcio\obj\Debug\netcoreapp3.1\Fantacalcio.genruntimeconfig.cache
+G:\Il mio Drive\Portatile\Github\Fantacalcio\Fantacalcio\Fantacalcio\Fantacalcio\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
+G:\Il mio Drive\Portatile\Github\Fantacalcio\Fantacalcio\Fantacalcio\Fantacalcio\obj\Debug\netcoreapp3.1\Fantacalcio.csproj.CopyComplete
