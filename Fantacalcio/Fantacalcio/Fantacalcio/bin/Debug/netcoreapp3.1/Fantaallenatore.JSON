@@ -1,0 +1,22 @@
+[
+  {
+    "nome": "GIOVANNI",
+    "N_portieri": 0,
+    "N_difensori": 0,
+    "N_centrocampisti": 0,
+    "N_attacanti": 0,
+    "Fantaallenatore_punti": 0.0,
+    "Fantaallenatore_crediti": 1000,
+    "Lista_Calciatori": []
+  },
+  {
+    "nome": "FRANCESCO",
+    "N_portieri": 0,
+    "N_difensori": 0,
+    "N_centrocampisti": 0,
+    "N_attacanti": 0,
+    "Fantaallenatore_punti": 0.0,
+    "Fantaallenatore_crediti": 1000,
+    "Lista_Calciatori": []
+  }
+]

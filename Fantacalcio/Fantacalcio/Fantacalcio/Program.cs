@@ -1,9 +1,23 @@
 ﻿/** 
- * \file Fantacalcio.cs
+ * \file Program.cs
  * \author @gmarck04
  * \date 21/10/2021
  * \brief Il programma è un gestionale per il gioco fantacalcio
-*/
+ * Consegna:
+    La consegna dovrà contenere:    
+        - Relazione (requisiti, funzionale, tecnica) entro il 22/10/21
+        - Codice e revisione relazione entro il 4/11/21
+
+    Progettare un sistema di gestione del FANTACALCIO.
+    Il livello di complessità del regolamento dovrà essere gestito autonomamente e giustificato nella relazione.
+
+    Funzionalità minime
+        - Almeno 2 giocatori
+        - gestione dei crediti per l'acquisto giocatori (all'inizio X crediti, ogni giocatore vale y1, y2, y3..yn crediti
+        - gestione settimanale con inserimento punteggio singolo giocatori.
+        - gestione della classifica parziale al termine di ogni aggiornamento settimanale.
+
+    Il progetto DEVE essere svolto in modalità CONSOLE. */
 
 /* Nickname: @gmarck04
  * Data: 21/10/2021
@@ -30,12 +44,22 @@ using Newtonsoft.Json;
 
 namespace Fantacalcio
 {
+    /**
+    * \class Program
+    * \brief Classe principale del programma, che ha il compito di interfacciarsi con l'utente
+    */
     class Program
     {
+        /// \brief Grazie alla funzione AppDomain.CurrentDomain.BaseDirectory, che ottiene la directory di base, a cui aggiungo il nome del file, che è Fantaallenatore.JSON
         public static string file_fantaallenatore = AppDomain.CurrentDomain.BaseDirectory + "/Fantaallenatore.JSON";
+        /// \brief Grazie alla funzione AppDomain.CurrentDomain.BaseDirectory, che ottiene la directory di base, a cui aggiungo il nome del file, che è Fantacalciatore_elenco.JSON
         public static string file_fantacalciatore = AppDomain.CurrentDomain.BaseDirectory + "/Fantacalciatore_elenco.JSON";
+        /// \brief Lista di tipo fantaallenatore
         public static List<fantaallenatore> Lista_di_fantaallenatori = new List<fantaallenatore>();
+        /// \brief Lista di tipo fantacalciatore
         public static List<fantacalciatore> Lista_di_tutti_i_fantacalciatori = new List<fantacalciatore>();
+        
+
         static void Main(string[] args)
         {
             Data();
@@ -128,7 +152,7 @@ namespace Fantacalcio
                         break; //Chiudo.    
                     case 3: //Se la variabile scelta è uguale a 3.
                         {
-                            Banca_vendia(Id_Fantaallenatori(Squadra()));
+                            Banca_vendita(Id_Fantaallenatori(Squadra()));
                         }
                         break; //Chiudo.    
                     case 4: //Se la variabile scelta è uguale a 4.
@@ -244,13 +268,13 @@ namespace Fantacalcio
                     {
                         case 1:
                             {
-                                Banca_vendia(numero);
+                                Banca_vendita(numero);
                             }
                             break;
                         case 2:
                             {
                                 Console.WriteLine("Opzione non disponibile, sarai reidirizzato verso la banca");
-                                Banca_vendia(numero);
+                                Banca_vendita(numero);
                             }
                             break;
                     }
@@ -281,7 +305,7 @@ namespace Fantacalcio
             }            
         }
 
-        public static void Banca_vendia(int numero)
+        public static void Banca_vendita(int numero)
         {
             bool controllo = false;
             string nome_fantacalciatore = "";
