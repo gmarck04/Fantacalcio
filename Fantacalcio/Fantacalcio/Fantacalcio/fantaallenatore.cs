@@ -158,7 +158,7 @@ namespace Fantacalcio
          * \param   double datoSquadra1: viene posta uguale a 0
          * \param   double datoSquadra2: viene posta uguale a 0
          * \brief   Metodo che serve per comparare i punti di due diverse squadre
-         * \details Pongo la variablie datoSquadra1 pari al valore restituito dal metodo Calcola_punti di questa classe, pongo la variablie datoSquadra2 pari al valore restituito dal metodo della squadra 2 Calcola_punti,
+         * \details Pongo la variablie datoSquadra1 pari al valore restituito dal metodo Calcola_punti di questa classe, poi pongo la variablie datoSquadra2 pari al valore restituito dal metodo della squadra 2 Calcola_punti,
          * se il valore di datoSquadra1 è maggiore del valore di datoSquadra2 allora ritorna 1, se il valore di datoSquadra1 è uguale del valore di datoSquadra2 allora ritorna 0 oppure ritorna -1.
          */
         public int CompareTo(fantaallenatore squadra2)
