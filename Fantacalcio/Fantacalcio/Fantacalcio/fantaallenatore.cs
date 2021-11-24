@@ -16,7 +16,7 @@ namespace Fantacalcio
     {
         //Attributi
         [JsonProperty]
-        protected string nome;
+        public string nome;
         public int N_portieri, N_difensori, N_centrocampisti, N_attacanti;
         [JsonProperty]
         protected double Fantaallenatore_punti;
@@ -82,11 +82,6 @@ namespace Fantacalcio
 
         public override string ToString() //Metodo ToString, che ritorna la stringa nome.
         {
-            return $"nome: {nome}";
-        }
-
-        public string Get_nome()
-        {
             return nome;
         }
 
@@ -98,6 +93,26 @@ namespace Fantacalcio
         public int Get_Fantaallenatore_crediti()
         {
             return Fantaallenatore_crediti;
+        }
+
+        public int CompareTo(fantaallenatore squadra2) //Metodo che serve per comparare i gol fatti, gol subiti o i punti in base al codice inserito.
+        {
+            double datoSquadra1 = 0, datoSquadra2 = 0; //Inizializzo le variabili di tipo int datoSquadra1 e datoSquadra2 e le pongo pari a 0.
+            datoSquadra1 = this.Get_Fantaallenatore_punti(); //Pongo la variablie datoSquadra1 pari al valore restituito dal metodo Calcola_punti di questa classe.
+            datoSquadra2 = squadra2.Get_Fantaallenatore_punti(); //Pongo la variablie datoSquadra2 pari al valore restituito dal metodo della squadra 2 Calcola_punti.
+
+            if (datoSquadra1 > datoSquadra2) //Se il valore di datoSquadra1 è maggiore del valore di datoSquadra2 allora...
+            {
+                return 1; //Ritorna 1.
+            }
+            else if (datoSquadra1 == datoSquadra2) //Se il valore di datoSquadra1 è uguale del valore di datoSquadra2 allora...
+            {
+                return 0; //Ritorna 0.
+            }
+            else //Oppure...
+            {
+                return -1; //Ritorna -1.
+            }
         }
     }
 }
